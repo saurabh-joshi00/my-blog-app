@@ -13,7 +13,7 @@ export class AuthService {
         this.account = new Account(this.client);
     }
 
-    // Sign-up functionality
+    // Sign-up/Register functionality
     async createAccount({email, password, name}) {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name)
@@ -38,12 +38,12 @@ export class AuthService {
         }
     }
 
-    // If any account is in the session or not
-    async getCurrentAccount() {
+    // If user is logged-in or not (Get the currently logged in user)
+    async getCurrentUser() {
         try {
             return await this.account.get()
         } catch (error) {
-            throw error
+            console.log("Appwrite service :: getCurrentUser :: error", error);
         }
 
         return null
@@ -54,7 +54,7 @@ export class AuthService {
         try {
             await this.account.deleteSessions()
         } catch (error) {
-            throw error
+            console.log("Appwrite service :: logout :: error", error);
         }
     }
 }
