@@ -9,6 +9,8 @@ import SelectBox from "./Common/SelectBox"
 import PostCard from "./Common/PostCard";
 import LoginPage from "./LoginPage/LoginPage";
 import SignupPage from "./SignupPage/SignupPage";
+import RealtimeEditor from "./Common/RealtimeEditor"
+import PostForm from "./PostForm/PostForm";
 
 export {
     Header, 
@@ -21,5 +23,7 @@ export {
     SelectBox, 
     PostCard,
     LoginPage,
-    SignupPage
+    SignupPage,
+    RealtimeEditor,
+    PostForm
 }
