@@ -1,11 +1,11 @@
 import React, { useId } from 'react'
 
-function InputBox(ref, {
+function InputBox({
     label,
     type='text',
     className='',
     ...props
-}) {
+}, ref) {
 
   const id = useId()
 

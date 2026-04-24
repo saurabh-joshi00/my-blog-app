@@ -8,7 +8,6 @@ import { Outlet } from "react-router-dom"
 
 function App() {
   
-  // Managing loading state for conditional-rendering
   const [loading, setLoading] = useState(true)
 
   const dispatch = useDispatch()
@@ -25,19 +24,17 @@ function App() {
     .finally(() => setLoading(false))
   }, [])
 
-  if (!loading) {
-    return <div className="min-h-screen flex flex-wrap content-between bg-gray-500">
-      <div className="w-full block">
-        <Header />
-        <main>
-          Todo: <Outlet />
-        </main>
-        <Footer />
+    return !loading ? ( 
+      <div className="min-h-screen flex flex-wrap content-between bg-gray-500">
+        <div className="w-full block">
+          <Header />
+            <main>
+              <Outlet />
+            </main>
+          <Footer />
+        </div>
       </div>
-    </div>
-  } else {
-    <div>Loading...</div>
-  }
+    ) : null
 }
 
 export default App

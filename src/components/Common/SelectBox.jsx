@@ -1,11 +1,11 @@
 import React, { useId } from 'react'
 
-function SelectBox(ref, {
+function SelectBox({
     options=[],
     label,
     className='',
     ...props
-}) {
+}, ref) {
 
   const id = useId()
 

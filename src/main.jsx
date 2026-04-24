@@ -5,8 +5,8 @@ import App from './App.jsx'
 import { Provider } from 'react-redux'
 import { store } from './app/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { LoginPage, ProtectedRoute, SignupPage } from './components'
-import { AddPost, AllPosts, EditPost, Home, Post } from './pages'
+import { LoginPage, ProtectedRoute } from './components'
+import { AddPost, AllPosts, EditPost, Home, Post, Signup } from './pages'
 
 const router = createBrowserRouter([
   {
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         path: '/signup',
         element: (
           <ProtectedRoute authentication={false}>
-            <SignupPage />
+            <Signup />
           </ProtectedRoute>
         )
       },
