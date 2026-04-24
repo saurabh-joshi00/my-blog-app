@@ -11,6 +11,7 @@ import LoginPage from "./LoginPage/LoginPage";
 import SignupPage from "./SignupPage/SignupPage";
 import RealtimeEditor from "./Common/RealtimeEditor"
 import PostForm from "./PostForm/PostForm";
+import ProtectedRoute from "./AuthLayout/ProtectedRoute"
 
 export {
     Header, 
@@ -25,5 +26,6 @@ export {
     LoginPage,
     SignupPage,
     RealtimeEditor,
-    PostForm
+    PostForm,
+    ProtectedRoute
 }
