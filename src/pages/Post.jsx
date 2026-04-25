@@ -30,7 +30,7 @@ function Post() {
     const deletePost = () => {
         databaseService.deletePost(post.$id).then((status) => {
             if (status) {
-                databaseService.deleteFile(post.featuredImage);
+                storageService.deleteFile(post.featuredImage);
                 navigate("/");
             }
         });

@@ -41,7 +41,16 @@ export class AuthService {
     // If user is logged-in or not (Get the currently logged in user)
     async getCurrentUser() {
         try {
-            return await this.account.get()
+            const user = await this.account.get()
+            if (user) {
+                return {
+                    $id: user.$id,
+                    name: user.name,
+                    email: user.email,
+                    emailVerification: user.emailVerification,
+                    labels: user.labels || []
+                }
+            }
         } catch (error) {
             console.log("Appwrite service :: getCurrentUser :: error", error);
         }

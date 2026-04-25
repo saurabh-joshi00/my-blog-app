@@ -10,7 +10,7 @@ function PostForm({post}) {
 
   const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
     defaultValues: {
-        title: post?.tite || '',
+        title: post?.title || '',
         slug: post?.slug || '',
         content: post?.content || '',
         status: post?.status || 'active'
@@ -38,7 +38,7 @@ function PostForm({post}) {
             navigate(`/post/${dbPost.$id}`)
         }
     } else {
-        const file = await storageService.uploadFile(data.image[0])
+        const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
 
         if (file) {
             const fileId = file.$id
@@ -76,7 +76,7 @@ function PostForm({post}) {
     return () => {
         subscription.unsubscribe()
     }
-  }, [watch, , slugTransform, setValue])
+  }, [watch, slugTransform, setValue])
     
   return (
     <>
