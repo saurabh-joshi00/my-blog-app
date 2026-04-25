@@ -11,7 +11,7 @@ function PostForm({post}) {
   const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
     defaultValues: {
         title: post?.title || '',
-        slug: post?.$id || '',
+        slug: post?.$slug || '',
         content: post?.content || '',
         status: post?.status || 'active'
     }
@@ -40,19 +40,21 @@ function PostForm({post}) {
     } else {
         const file = await storageService.uploadFile(data.image[0])
 
-        if (file) {
-            const fileId = file.$id
-            data.featuredImage = fileId
-            const dbPost = await databaseService.createPost({
-                ...data,
-                userId: userData.$id
-            })
-
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`)
-            }
+        if (!file) {
+            console.error("Image upload failed or no image selected");
+            return
         }
-            
+        
+        const fileId = file.$id
+        data.featuredImage = fileId
+        const dbPost = await databaseService.createPost({
+            ...data,
+            userId: userData.$id
+        })
+
+        if (dbPost) {
+            navigate(`/post/${dbPost.$id}`)
+        }
     }
   }
 

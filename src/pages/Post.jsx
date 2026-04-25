@@ -44,6 +44,7 @@ function Post() {
                     src={storageService.getFilePreview(post.featuredImage)}
                     alt={post.title}
                     className="rounded-xl"
+                    style={{width: '400px', height: '400px', objectFit: 'cover'}}
                 />
 
                 {
