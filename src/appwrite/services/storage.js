@@ -43,11 +43,15 @@ export class StorageService {
     }
 
     // Get a file preview image
-    getFilePreview(fileId) {
+    getFilePreview(fileId, width=500, height=500) {
         return this.storage.getFilePreview(
             config.appwriteBucketId,
-            fileId
-        )
+            fileId,
+            width,
+            height,
+            "center",
+            100
+        ).toString()
     }
 }
 
