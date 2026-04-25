@@ -11,7 +11,7 @@ function PostForm({post}) {
   const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
     defaultValues: {
         title: post?.title || '',
-        slug: post?.slug || '',
+        slug: post?.$id || '',
         content: post?.content || '',
         status: post?.status || 'active'
     }
@@ -26,19 +26,19 @@ function PostForm({post}) {
         const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
 
         if (file) {
-            storageService.deleteFile(post.featuredImage)
+            await storageService.deleteFile(post.featuredImage)
         }
 
         const dbPost = await databaseService.updatePost(post.$id, {
             ...data,
-            featuredImage: file ? file.$id : undefined
+            featuredImage: file ? file.$id : post.featuredImage
         })
 
         if (dbPost) {
             navigate(`/post/${dbPost.$id}`)
         }
     } else {
-        const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
+        const file = await storageService.uploadFile(data.image[0])
 
         if (file) {
             const fileId = file.$id
@@ -52,6 +52,7 @@ function PostForm({post}) {
                 navigate(`/post/${dbPost.$id}`)
             }
         }
+            
     }
   }
 
