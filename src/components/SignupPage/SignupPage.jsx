@@ -5,11 +5,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import authService from '../../appwrite/services/auth'
 import { login } from '../../features/authentication/authSlice'
 import { Button, InputBox, Logo } from '../index'
+import toast from 'react-hot-toast'
 
 function SignupPage() {
  
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch() 
   
   const { register, handleSubmit } = useForm()
 
@@ -21,10 +22,14 @@ function SignupPage() {
         const session = await authService.createAccount(data)
         if (session) {
             const userData = await authService.getCurrentUser()
-            if (userData) dispatch(login(userData));
+            if (userData) dispatch(login({userData}));
+            toast.success('Your account is created!');
             navigate('/')
         }
     } catch (error) {
+        toast.error('Invalid email or password!', {
+            duration: 2000
+        });
         setError(error.message)
     }
   }
@@ -86,7 +91,7 @@ function SignupPage() {
                     />
                     <Button 
                         type='submit'
-                        className='w-full'
+                        className='w-full bg-orange-600'
                         children='Create Account'
                     />
                 </div>

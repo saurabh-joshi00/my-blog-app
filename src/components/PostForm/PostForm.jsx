@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import storageService from '../../appwrite/services/storage'
 import databaseService from '../../appwrite/services/database'
 import { Button, InputBox, RealtimeEditor, SelectBox } from '../index'
+import toast from 'react-hot-toast'
 
 function PostForm({post}) {
 
-  const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
+  const {register, handleSubmit, formState: {errors}, watch, setValue, control, getValues} = useForm({
     defaultValues: {
         title: post?.title || '',
-        slug: post?.$slug || '',
+        slug: post?.slug || post?.$id || '',
         content: post?.content || '',
         status: post?.status || 'active'
     }
@@ -23,37 +24,77 @@ function PostForm({post}) {
 
   const submit = async (data) => {
     if (post) {
-        const file = data.image[0] ? await storageService.uploadFile(data.image[0]) : null
+        let file = null;
 
-        if (file) {
-            await storageService.deleteFile(post.featuredImage)
-        }
+        // Update flow
+        try {
+            file = data.image?.[0] ? await storageService.uploadFile(data.image[0]) : null
 
-        const dbPost = await databaseService.updatePost(post.$id, {
-            ...data,
-            featuredImage: file ? file.$id : post.featuredImage
-        })
-
-        if (dbPost) {
-            navigate(`/post/${dbPost.$id}`)
-        }
-    } else {
-        const file = await storageService.uploadFile(data.image[0])
-
-        if (!file) {
-            console.error("Image upload failed or no image selected");
+            if (data.image[0] && !file) throw new Error('File upload failed');
+            
+        } catch (error) {
+            toast.error('Error while uploading file!', {
+                duration: 2000
+            });
+            console.error('Error uploading file:', error);
             return
         }
-        
-        const fileId = file.$id
-        data.featuredImage = fileId
-        const dbPost = await databaseService.createPost({
-            ...data,
-            userId: userData.$id
-        })
 
-        if (dbPost) {
-            navigate(`/post/${dbPost.$id}`)
+        try {
+            if (file && post.featuredImage) {
+                await storageService.deleteFile(post.featuredImage);
+                toast.success('Featured image deleted!');
+            }
+        } catch (error) {
+            toast.error('Failed to remove previous image!', {
+                duration: 2000
+            });
+            console.warn('Failed to remove previous image:', error)
+        }
+
+        try {
+            const dbPost = await databaseService.updatePost(post.slug || post.$id, {
+                ...data,
+                featuredImage: file ? file.$id : post.featuredImage
+            })
+            toast.success('Post updated!');
+
+            if (dbPost) {
+                navigate('/all-posts')
+            }
+        } catch (error) {
+            toast.error('Error while updating post!', {
+                duration: 2000
+            });
+            console.error('Error updating post:', error);
+        }
+    } else {
+        // Create flow
+        try {
+            const toastId = toast.loading('Creating...');
+
+            if (!data.image[0]) throw new Error('Image is required');
+            
+            const file = await storageService.uploadFile(data.image[0])
+            if (!file) throw new Error('File upload failed');
+
+            const dbPost = await databaseService.createPost({
+                ...data,
+                featuredImage: file.$id,
+                userId: userData.$id
+            })
+            toast.success('New post created!', {
+                id: toastId
+            });
+
+            if (dbPost) {
+                navigate('/all-posts')
+            }
+        } catch (error) {
+            toast.error('Error while creating post!', {
+                duration: 2000
+            });
+            console.error('Error creating post:', error);
         }
     }
   }
@@ -72,7 +113,7 @@ function PostForm({post}) {
   useEffect(() => {
     const subscription = watch((value, {name}) => {
         if (name === 'title') {
-            setValue('slug', slugTransform(value.title, {shouldValidate: true}))
+            setValue('slug', slugTransform(value.title), {shouldValidate: true})
         }
     })
 
@@ -91,6 +132,8 @@ function PostForm({post}) {
                     className="mb-4"
                     {...register("title", { required: true })}
                 />
+                {errors?.title && <p className='text-red-600 text-sm'>Title is required</p>}
+
                 <InputBox
                     label="Slug: "
                     placeholder="Slug"
@@ -100,6 +143,8 @@ function PostForm({post}) {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
                     }}
                 />
+                {errors?.slug && <p className='text-red-600 text-sm'>Slug is required</p>}
+
                 <RealtimeEditor
                     label="Content: " name="content" control={control} defaultValue={getValues("content")} 
                 />
@@ -112,6 +157,7 @@ function PostForm({post}) {
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
+                {errors?.image && <p className='text-red-600 text-sm'>Image is required</p>}
 
                 {post && (
                     <div className="w-full mb-4">

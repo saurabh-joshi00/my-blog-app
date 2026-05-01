@@ -5,30 +5,32 @@ import { Logo } from '../index'
 function Footer() {
   return (
     <>
-      <section className="relative overflow-hidden py-10 bg-gray-400 border border-t-2 border-t-black">
+      <section className="relative overflow-hidden py-10 bg-white border border-t-2 border-t-black border-b-0">
           <div className="relative z-10 mx-auto max-w-7xl px-4">
               <div className="-m-6 flex flex-wrap">
                   <div className="w-full p-6 md:w-1/2 lg:w-5/12">
                       <div className="flex h-full flex-col justify-between">
                           <div className="mb-4 inline-flex items-center">
-                              <Logo width="100px" />
+                            <Link to='/'>
+                                <Logo width="100px" />
+                            </Link>
                           </div>
                           <div>
                               <p className="text-sm text-gray-600">
-                                  &copy; Copyright 2023. All Rights Reserved by DevUI.
+                                  &copy; Copyright 2026. All Rights Reserved by Saurabh Joshi.
                               </p>
                           </div>
                       </div>
                   </div>
                   <div className="w-full p-6 md:w-1/2 lg:w-2/12">
                       <div className="h-full">
-                          <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
+                          <h3 className="tracking-px mb-9 text-xs font-semibold uppercase text-gray-500">
                               Company
                           </h3>
                           <ul>
                               <li className="mb-4">
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Features
@@ -36,7 +38,7 @@ function Footer() {
                               </li>
                               <li className="mb-4">
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Pricing
@@ -44,7 +46,7 @@ function Footer() {
                               </li>
                               <li className="mb-4">
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Affiliate Program
@@ -52,7 +54,7 @@ function Footer() {
                               </li>
                               <li>
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Press Kit
@@ -69,7 +71,7 @@ function Footer() {
                           <ul>
                               <li className="mb-4">
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Account
@@ -77,7 +79,7 @@ function Footer() {
                               </li>
                               <li className="mb-4">
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Help
@@ -85,7 +87,7 @@ function Footer() {
                               </li>
                               <li className="mb-4">
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Contact Us
@@ -93,7 +95,7 @@ function Footer() {
                               </li>
                               <li>
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Customer Support
@@ -110,7 +112,7 @@ function Footer() {
                           <ul>
                               <li className="mb-4">
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Terms &amp; Conditions
@@ -118,7 +120,7 @@ function Footer() {
                               </li>
                               <li className="mb-4">
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Privacy Policy
@@ -126,7 +128,7 @@ function Footer() {
                               </li>
                               <li>
                                   <Link
-                                      className=" text-base font-medium text-gray-900 hover:text-gray-700"
+                                      className=" text-base font-medium text-gray-900 hover:text-orange-600"
                                       to="/"
                                   >
                                       Licensing

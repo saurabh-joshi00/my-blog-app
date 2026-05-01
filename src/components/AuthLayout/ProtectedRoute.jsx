@@ -30,7 +30,7 @@ function ProtectedRoute({
     setLoader(false)
   }, [authStatus, navigate, authentication])
 
-  return loader ? <h1>Loading...</h1> : <>{children}</>
+  return loader ? <h1 className='flex flex-col justify-center items-center text-3xl font-bold text-white py-8'>Loading...</h1> : <>{children}</>
 }
 
 export default ProtectedRoute

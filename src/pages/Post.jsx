@@ -5,6 +5,7 @@ import databaseService from '../appwrite/services/database'
 import { Button, Container } from '../components'
 import storageService from '../appwrite/services/storage'
 import parse from 'html-react-parser'
+import toast from 'react-hot-toast'
 
 function Post() {
 
@@ -25,21 +26,35 @@ function Post() {
                 else navigate("/");
             });
         } else navigate("/");
-    }, [slug, navigate])
+    }, [userData, slug, navigate])
 
     const deletePost = () => {
         databaseService.deletePost(post.$id).then((status) => {
             if (status) {
                 storageService.deleteFile(post.featuredImage);
+                toast.success('Post deleted!');
                 navigate("/");
             }
         });
     };
     
-  return post ? (
+  return post && isAuthor ? (
     <div className='py-8'>
         <Container>
-            <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+            <div className="w-full flex justify-center mb-4 relative border border-red-400 rounded-xl p-2">
+
+                {
+                    isAuthor && (
+                        <div className="absolute left-6 top-6">
+                            <Link to='/'>
+                                <Button className='cursor-pointer'>
+                                    Back
+                                </Button>
+                            </Link>
+                        </div>
+                    )
+                }
+
                 <img
                     src={storageService.getFilePreview(post.featuredImage)}
                     alt={post.title}
@@ -51,11 +66,11 @@ function Post() {
                     isAuthor && (
                         <div className="absolute right-6 top-6">
                             <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3">
+                                <Button bgColor="bg-green-500" className="mr-3 cursor-pointer">
                                     Edit
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost}>
+                            <Button bgColor="bg-red-500" onClick={deletePost} className='cursor-pointer'>
                                 Delete
                             </Button>
                         </div>

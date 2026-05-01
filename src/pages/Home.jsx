@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import databaseService from '../appwrite/services/database'
 import { Container, PostCard } from '../components'
+import { useSelector } from 'react-redux'
 
 function Home() {
 
   const [posts, setPosts] = useState([])
 
-  useEffect(() => {
-    databaseService.getFilteredPosts()
-    .then((posts) => {
-        if (posts) {
-            setPosts(posts.rows)
-        }
-    })
-  }, [])
+  const userData = useSelector((state) => state.auth.userData)
 
-  if (posts.length === 0) {
+  const userPosts = userData ? posts.filter(post => post.userId === userData.$id) : []
+
+  useEffect(() => { 
+    if (userData) {
+        databaseService.getFilteredPosts()
+        .then((posts) => {
+            if (posts) {
+                setPosts(posts.rows)
+            }
+        })
+    }
+  }, [userData])
+
+  if (!userData || posts.length === 0) {
     return (
         <div className='w-full py-8 mt-4 text-center'>
             <Container>
                 <div className='flex flex-wrap'>
                     <div className='p-2 w-full'>
-                        <h1 className="text-2xl font-bold hover:text-gray-500">
-                            Login to read posts
+                        <h1 className="text-2xl font-bold text-orange-600">
+                            Login to read posts!
                         </h1>
                     </div>
                 </div>
@@ -35,7 +42,7 @@ function Home() {
             <Container>
                 <div className='flex flex-wrap'>
                     {
-                        posts.map((post) => (
+                        userPosts.map((post) => (
                             <div key={post.$id} className='p-2 w-1/4'>
                                 <PostCard {...post} />
                             </div>

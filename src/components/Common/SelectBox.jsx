@@ -1,4 +1,4 @@
-import React, { useId } from 'react'
+import React, { forwardRef, useId } from 'react'
 
 function SelectBox({
     options=[],
@@ -34,4 +34,4 @@ function SelectBox({
   )
 }
 
-export default SelectBox
+export default forwardRef(SelectBox)

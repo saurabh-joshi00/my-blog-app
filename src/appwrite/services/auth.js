@@ -47,6 +47,7 @@ export class AuthService {
                     $id: user.$id,
                     name: user.name,
                     email: user.email,
+                    status: user.status,
                     emailVerification: user.emailVerification,
                     labels: user.labels || []
                 }

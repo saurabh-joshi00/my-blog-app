@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import authService from '../../appwrite/services/auth'
 import { login as storeLogin } from '../../features/authentication/authSlice'
 import { Button, InputBox, Logo } from "../index"
+import toast from 'react-hot-toast'
 
 function LoginPage() {
 
@@ -21,17 +22,21 @@ function LoginPage() {
         const session = await authService.login(data)
         if (session) {
             const userData = await authService.getCurrentUser()
-            if (userData) dispatch(storeLogin(userData));
-            navigate('/')
+            if (userData) dispatch(storeLogin({userData}));
+            toast.success('Welcome back!');
+            navigate('/');
         }
     } catch (error) {
+        toast.error('Invalid email or password!', {
+            duration: 2000
+        });
         setError(error.message)
     }
   }
 
-  return (
+  return ( 
     <>
-      <div className='flex items-center justify-center w-full'>
+      <div className='flex items-center justify-center w-full py-8'>
         <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
             <div className='mb-2 flex justify-center'>
                 <span className='inline-block w-full max-w-25'>
@@ -79,7 +84,7 @@ function LoginPage() {
                     />
                     <Button 
                         type='submit'
-                        className='w-full'
+                        className='w-full bg-orange-600'
                         children='Sign in'
                     />
                 </div>

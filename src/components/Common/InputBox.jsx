@@ -1,4 +1,4 @@
-import React, { useId } from 'react'
+import React, { forwardRef, useId } from 'react'
 
 function InputBox({
     label,
@@ -34,4 +34,4 @@ function InputBox({
   )
 }
 
-export default InputBox
+export default forwardRef(InputBox)
