@@ -227,9 +227,9 @@ Please follow the existing code style and write descriptive commit messages.
 ## 👤 Author
 
 **Your Name**
-- GitHub: [@your-username](https://github.com/saurabh-joshi00)
-- LinkedIn: [your-linkedin](https://www.linkedin.com/in/saurabh-joshi01/)
-- Twitter/X: [@your-handle](https://x.com/saurabhhdotfr)
+- GitHub: [@saurabh-joshi00](https://github.com/saurabh-joshi00)
+- LinkedIn: [@saurabh-joshi01](https://www.linkedin.com/in/saurabh-joshi01/)
+- Twitter/X: [@saurabhhdotfr](https://x.com/saurabhhdotfr)
 
 ---
 
