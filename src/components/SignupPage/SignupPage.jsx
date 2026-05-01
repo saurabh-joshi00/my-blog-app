@@ -48,7 +48,7 @@ function SignupPage() {
                 Already have an account?&nbsp;
                 <Link 
                     to='/login'
-                    className='font-medium text-primary transition-all duration-200 hover:underline'
+                    className='font-medium text-orange-600 text-primary transition-all duration-200 hover:underline'
                 >
                     Sign In
                 </Link>
@@ -91,7 +91,7 @@ function SignupPage() {
                     />
                     <Button 
                         type='submit'
-                        className='w-full bg-orange-600'
+                        className='w-full bg-orange-600 cursor-pointer'
                         children='Create Account'
                     />
                 </div>

@@ -48,7 +48,7 @@ function LoginPage() {
                 Don&apos;t have any account?&nbsp;
                 <Link 
                     to='/signup'
-                    className='font-medium text-primary transition-all duration-200 hover:underline'
+                    className='font-medium text-primary text-orange-600 transition-all duration-200 hover:underline'
                 >
                     Sign Up
                 </Link>
@@ -84,7 +84,7 @@ function LoginPage() {
                     />
                     <Button 
                         type='submit'
-                        className='w-full bg-orange-600'
+                        className='w-full bg-orange-600 cursor-pointer'
                         children='Sign in'
                     />
                 </div>
