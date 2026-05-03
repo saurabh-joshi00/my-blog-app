@@ -33,7 +33,7 @@
 
 | Layer            | Technology                          |
 |------------------|-------------------------------------|
-| Frontend         | React 18, React Router DOM          |
+| Frontend         | React 19, React Router DOM          |
 | State Management | Redux Toolkit                       |
 | Forms            | React Hook Form                     |
 | Rich Text Editor | TinyMCE                             |
