@@ -184,7 +184,7 @@ npm run preview
 
 ## 👤 Author
 
-**Saurabh Joshi**
+**Your Name**
 - GitHub: [@your-username](https://github.com/saurabh-joshi00)
 - LinkedIn: [your-linkedin](https://www.linkedin.com/in/saurabh-joshi01/)
 - Twitter/X: [@your-handle](https://x.com/saurabhhdotfr)
