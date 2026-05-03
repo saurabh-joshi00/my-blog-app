@@ -1,24 +1,4 @@
-# 📝 My Blog App
-
-> A full-fledged blog platform built with **React** & **Appwrite** — featuring secure authentication, protected routes, a rich text editor, and complete CRUD functionality.
-
----
-
-## 📌 Table of Contents
-
-- [Overview](#overview)
-- [Live Demo](#live-demo)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-    - [Environment Variables](#environment-variables)
-    - [Running the App](#running-the-app)
-- [Appwrite Setup](#appwrite-setup)
-- [Contributing](#contributing)
-- [Author](#author)
+# My Blog App
 
 ---
 
@@ -202,31 +182,9 @@ npm run preview
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Here's how to get started:
-
-```bash
-# 1. Fork the repo
-# 2. Create your feature branch
-git checkout -b feature/your-feature-name
- 
-# 3. Commit your changes
-git commit -m "feat: add your feature"
- 
-# 4. Push to the branch
-git push origin feature/your-feature-name
- 
-# 5. Open a Pull Request
-```
-
-Please follow the existing code style and write descriptive commit messages.
-
----
-
 ## 👤 Author
 
-**Your Name**
+**Saurabh Joshi**
 - GitHub: [@your-username](https://github.com/saurabh-joshi00)
 - LinkedIn: [your-linkedin](https://www.linkedin.com/in/saurabh-joshi01/)
 - Twitter/X: [@your-handle](https://x.com/saurabhhdotfr)
