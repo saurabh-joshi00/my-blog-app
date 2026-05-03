@@ -184,10 +184,10 @@ npm run preview
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@your-username](https://github.com/saurabh-joshi00)
-- LinkedIn: [your-linkedin](https://www.linkedin.com/in/saurabh-joshi01/)
-- Twitter/X: [@your-handle](https://x.com/saurabhhdotfr)
+**Saurabh Joshi**
+- GitHub: [@github/saurabh-joshi00](https://github.com/saurabh-joshi00)
+- LinkedIn: [@linkedin/saurabh-joshi01](https://www.linkedin.com/in/saurabh-joshi01/)
+- Twitter/X: [@x/saurabhhdotfr](https://x.com/saurabhhdotfr)
 
 ---
 
