@@ -182,7 +182,7 @@ npm run preview
 
 ---
 
-## 👤 Author
+## 👨‍💻 BTS Developer
 
 **Saurabh Joshi**
 - GitHub: [@github/saurabh-joshi00](https://github.com/saurabh-joshi00)
