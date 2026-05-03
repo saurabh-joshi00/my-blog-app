@@ -16,7 +16,7 @@
 
 ## ✨ Features
 
-- 🔐 **Secure Authentication** — User signup, login, and logout powered by Appwrite Auth
+- 🔐 **Secure Authentication** — User signup, login, and logout powered by Appwrite Auth and OAuth2
 - 🛡️ **Protected Routes** — Private pages accessible only to authenticated users
 - 📝 **Rich Text Editor** — TinyMCE integration for writing and formatting posts
 - 📖 **Post Feed** — Browse all published posts on the home page
