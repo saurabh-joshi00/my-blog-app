@@ -67,6 +67,32 @@ export class AuthService {
             console.log("Appwrite service :: logout :: error", error);
         }
     }
+
+    // Login with google
+    async loginWithGoogle() {
+        try {
+            await this.account.createOAuth2Session(
+                'google',
+                `${window.location.origin}/`,       // success redirect
+                `${window.location.origin}/login`   // failure redirect
+            ) 
+        } catch (error) {
+            console.log("Appwrite service :: loginWithGoogle :: error", error);
+        }
+    }
+
+    // Login with github
+    async loginWithGithub() {
+        try {
+            await this.account.createOAuth2Session(
+                'github',
+                `${window.location.origin}/`,       // success redirect
+                `${window.location.origin}/login`   // failure redirect
+            )
+        } catch (error) {
+            console.log("Appwrite service :: loginWithGithub :: error", error);
+        }
+    }
 }
 
 const authService = new AuthService()

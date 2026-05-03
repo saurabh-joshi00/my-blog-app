@@ -70,9 +70,8 @@ function PostForm({post}) {
         }
     } else {
         // Create flow
+        const toastId = toast.loading('Creating...');
         try {
-            const toastId = toast.loading('Creating...');
-
             if (!data.image[0]) throw new Error('Image is required');
             
             const file = await storageService.uploadFile(data.image[0])
@@ -92,6 +91,7 @@ function PostForm({post}) {
             }
         } catch (error) {
             toast.error('Error while creating post!', {
+                id: toastId,
                 duration: 2000
             });
             console.error('Error creating post:', error);

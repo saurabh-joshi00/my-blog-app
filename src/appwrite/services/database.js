@@ -83,9 +83,10 @@ export class DatabaseService {
     }
 
     // Get a list of the blog posts according to their 'status'
-    async getFilteredPosts(status = null) {
+    async getFilteredPosts(userId, status = null) {
         try {
-            const queries = status ? [Query.equal('status', status)] : [];
+            const queries = [Query.equal('userId', userId)] // ← always filter by user
+            if (status) queries.push(Query.equal('status', status))
 
             return await this.tablesDB.listRows(
                 config.appwriteDatabaseId,

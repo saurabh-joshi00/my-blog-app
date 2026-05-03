@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { data, Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Container, Logo, LogoutBtn } from '../index' 
 
 function Header() {
@@ -9,6 +9,8 @@ function Header() {
   const userData = useSelector((state) => state.auth.userData)
 
   const navigate = useNavigate()
+
+  const location = useLocation()
 
   const navItems = [
     {
@@ -52,7 +54,7 @@ function Header() {
 
             <div>
               {
-                userData?.name && <span className='text-red-400 font-bold'>Hey! {userData.name.split(' ')[0]}</span>
+                userData?.name && <span className='text-red-400 font-bold'>Hey! {userData.name.split(' ')[0]} 👋</span>
               }
             </div>
 
@@ -65,7 +67,7 @@ function Header() {
                       key={item.name}
                     >
                       <button
-                        className='inline-block px-6 py-2 duration-200 text-orange-600 hover:bg-orange-100 hover:text-black rounded-full cursor-pointer'
+                        className={`outline-none inline-block px-6 py-2 duration-200 rounded-full cursor-pointer ${location.pathname === item.url ? 'bg-orange-100 text-black' : 'text-orange-600 hover:bg-orange-100 hover:text-black'}`}
                         onClick={() => navigate(item.url)}
                       >{item.name}</button>
                     </li>
