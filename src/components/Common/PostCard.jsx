@@ -5,8 +5,24 @@ import storageService from '../../appwrite/services/storage'
 function PostCard({
     $id,
     title,
-    featuredImage
+    featuredImage ,
+    $createdAt
 }) {
+
+  const formatDate = (dateString) => {
+    try {
+      const date = new Date(dateString)
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return dateString
+    }
+  }
+
   return (
     <>
       <Link to={`/post/${$id}`}>
@@ -22,6 +38,7 @@ function PostCard({
                 )
               }  
             </div>
+            <p className='text-sm text-gray-600 mb-2'>{formatDate($createdAt)}</p>
             <h2 
                 className='text-xl font-bold text-center'
             >

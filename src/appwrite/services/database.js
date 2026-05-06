@@ -98,6 +98,22 @@ export class DatabaseService {
             return false
         }
     }
+
+    //
+    async getAllActivePosts() {
+        try {
+            const queries = [Query.equal('status', 'active')];
+
+            return await this.tablesDB.listRows(
+                config.appwriteDatabaseId,
+                config.appwriteTableId,
+                queries
+            )
+        } catch (error) {
+            console.log("Appwrite service :: getAllActivePosts :: error", error);
+            return false
+        }
+    }
 }
 
 const databaseService = new DatabaseService()

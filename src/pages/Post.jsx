@@ -10,6 +10,7 @@ import toast from 'react-hot-toast'
 function Post() {
 
   const [post, setPost] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const {slug} = useParams()
 
@@ -24,11 +25,12 @@ function Post() {
             databaseService.getPost(slug).then((post) => {
                 if (post) setPost(post);
                 else navigate("/");
-            });
+            })
+            .finally(() => setLoading(false))
         } else navigate("/");
-    }, [userData, slug, navigate])
+  }, [userData, slug, navigate])
 
-    const deletePost = () => {
+  const deletePost = () => {
         databaseService.deletePost(post.$id).then((status) => {
             if (status) {
                 storageService.deleteFile(post.featuredImage);
@@ -36,23 +38,33 @@ function Post() {
                 navigate("/");
             }
         });
-    };
+  };
     
-  return post && isAuthor ? (
+  if (loading) {
+    return (
+        <div className='w-full py-8 mt-4 text-center'>
+            <Container>
+                <div className='p-16 w-full'>
+                    <h1 className="text-2xl font-bold text-gray-500">Loading...</h1>
+                </div>
+            </Container>
+        </div>
+    )
+  }
+
+  return post ? (
     <div className='py-8'>
         <Container>
             <div className="w-full flex justify-center mb-4 relative border border-red-400 rounded-xl p-2">
 
                 {
-                    isAuthor && (
-                        <div className="absolute left-6 top-6">
-                            <Link to='/'>
-                                <Button className='cursor-pointer'>
-                                    Back
-                                </Button>
-                            </Link>
-                        </div>
-                    )
+                    <div className="absolute left-6 top-6">
+                        <Link to='/'>
+                            <Button className='cursor-pointer'>
+                                Back
+                            </Button>
+                        </Link>
+                    </div>
                 }
 
                 <img

@@ -9,7 +9,7 @@ function AllPosts() {
 
   const userData = useSelector((state) => state.auth.userData)
 
-  const [loading, setLoading] = useState(!!userData)
+  const [loading, setLoading] = useState(true)
   
   const filterPosts = async (e) => {
     try {
@@ -41,6 +41,8 @@ function AllPosts() {
             }
         })
         .finally(() => setLoading(false))
+    } else {
+        setLoading(false)
     }
   }, [userData])
 
@@ -80,7 +82,9 @@ function AllPosts() {
                     {
                         <div className='flex flex-wrap'>
                             {
-                                posts.map((post) => (
+                                posts
+                                .sort((a, b) => new Date(b.$createdAt) - new Date(a.$createdAt))
+                                .map((post) => (
                                     <div key={post.$id} className='p-2 w-1/4'>
                                         <PostCard {...post} />
                                     </div>
