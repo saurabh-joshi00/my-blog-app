@@ -60,7 +60,7 @@ function PostForm({post}) {
             toast.success('Post updated!');
 
             if (dbPost) {
-                navigate('/all-posts')
+                navigate('/my-posts')
             }
         } catch (error) {
             toast.error('Error while updating post!', {
@@ -87,7 +87,7 @@ function PostForm({post}) {
             });
 
             if (dbPost) {
-                navigate('/all-posts')
+                navigate('/my-posts')
             }
         } catch (error) {
             toast.error('Error while creating post!', {
