@@ -16,7 +16,7 @@
 
 ## ✨ Features
 
-- 🔐 **Secure Authentication** — User signup, login, and logout powered by Appwrite Auth
+- 🔐 **Secure Authentication** — User signup, login, and logout powered by Appwrite Auth and OAuth2
 - 🛡️ **Protected Routes** — Private pages accessible only to authenticated users
 - 📝 **Rich Text Editor** — TinyMCE integration for writing and formatting posts
 - 📖 **Post Feed** — Browse all published posts on the home page
@@ -33,7 +33,7 @@
 
 | Layer            | Technology                          |
 |------------------|-------------------------------------|
-| Frontend         | React 18, React Router DOM          |
+| Frontend         | React, React Router DOM             |
 | State Management | Redux Toolkit                       |
 | Forms            | React Hook Form                     |
 | Rich Text Editor | TinyMCE                             |
@@ -182,7 +182,7 @@ npm run preview
 
 ---
 
-## 👤 Author
+## 👨‍💻 BTS Developer
 
 **Saurabh Joshi**
 - GitHub: [@github/saurabh-joshi00](https://github.com/saurabh-joshi00)
