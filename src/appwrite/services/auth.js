@@ -1,4 +1,4 @@
-import { Account, Client, ID } from 'appwrite'
+import { Account, Client, ID, OAuthProvider } from 'appwrite'
 import config from '../../config/config'
 
 export class AuthService {
@@ -72,7 +72,7 @@ export class AuthService {
     async loginWithGoogle() {
         try {
             await this.account.createOAuth2Session(
-                'google',
+                OAuthProvider.Google,
                 `${window.location.origin}/`,       // success redirect
                 `${window.location.origin}/login`   // failure redirect
             ) 
@@ -85,7 +85,7 @@ export class AuthService {
     async loginWithGithub() {
         try {
             await this.account.createOAuth2Session(
-                'github',
+                OAuthProvider.Github,
                 `${window.location.origin}/`,       // success redirect
                 `${window.location.origin}/login`   // failure redirect
             )

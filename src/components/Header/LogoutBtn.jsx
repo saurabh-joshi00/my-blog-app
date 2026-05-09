@@ -3,10 +3,12 @@ import { useDispatch } from 'react-redux'
 import { logout } from '../../features/authentication/authSlice'
 import authService from '../../appwrite/services/auth'
 import toast from 'react-hot-toast' 
+import { useNavigate } from 'react-router-dom'
 
 function LogoutBtn() {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const logoutHandler = () => {
     authService.logout()
@@ -14,6 +16,7 @@ function LogoutBtn() {
       dispatch(logout());
       toast.success('Logged out successfully!');
     })
+    .then(() => navigate('/'))
     .catch((error) => {
       toast.error('Error while logging out!', {
         duration: 2000
