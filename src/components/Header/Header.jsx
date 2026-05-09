@@ -67,7 +67,7 @@ function Header() {
                       key={item.name}
                     >
                       <button
-                        className={`outline-none inline-block px-6 py-2 duration-200 rounded-full cursor-pointer ${location.pathname === item.url ? 'bg-orange-100 text-black' : 'text-orange-600 hover:bg-orange-100 hover:text-black'}`}
+                        className={`outline-none inline-block px-6 py-2 duration-200 rounded-full cursor-pointer ${location.pathname === item.url ? 'bg-orange-100 text-black font-semibold' : 'text-orange-600 hover:bg-orange-100 hover:text-black'}`}
                         onClick={() => navigate(item.url)}
                       >{item.name}</button>
                     </li>

@@ -4,7 +4,7 @@ import { LoginPage as LoginComponent } from '../components'
 function Login() {
   return (
     <>
-      <div>
+      <div className='w-full py-8'>
         <LoginComponent />
       </div>
     </>

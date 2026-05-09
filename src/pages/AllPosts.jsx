@@ -40,6 +40,9 @@ function AllPosts() {
                 setPosts(posts.rows)
             }
         })
+        .catch((error) => {
+            console.log('Error: ', error?.message);
+        })
         .finally(() => setLoading(false))
     } else {
         setLoading(false)

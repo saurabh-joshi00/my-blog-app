@@ -22,7 +22,7 @@ export class AuthService {
                 // if account is created, logged-into that directly
                 return this.login({email, password})
             } else {
-                return userAccount
+                throw new Error('Failed to create account')
             }
         } catch (error) {
             throw error

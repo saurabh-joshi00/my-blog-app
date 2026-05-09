@@ -19,6 +19,9 @@ function EditPost() {
                 setPost(post)
             }
         })
+        .catch((error) => {
+            console.log('Error: ', error?.message);
+        })
     } else {
         navigate('/')
     }

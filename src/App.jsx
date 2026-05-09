@@ -22,6 +22,9 @@ function App() {
         dispatch(logout())
       }
     })
+    .catch((error) => {
+      console.log('Error: ', error?.message);
+    })
     .finally(() => setLoading(false))
   }, [])
 
@@ -30,7 +33,7 @@ function App() {
         <Toaster position="top-center" reverseOrder={false} />
         <div className="w-full block">
           <Header />
-            <main>
+            <main className="min-h-screen">
               <Outlet />
             </main>
           <Footer />

@@ -30,7 +30,7 @@ function PostCard({
             <div className='w-full mb-4'>
               {
                 featuredImage ? (
-                  <img src={storageService.getFilePreview(featuredImage)} alt={title} className='rounded-xl h-56 w-full object-contain' />
+                  <img src={storageService.getFilePreview(featuredImage)} alt={title} className='rounded-xl h-56 w-full object-cover' />
                 ) : (
                   <div className='w-full h-48 bg-gray-300 rounded-xl flex items-center justify-center'>
                     <span className='text-white'>No Image</span>

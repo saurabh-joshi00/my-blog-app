@@ -5,13 +5,14 @@ import App from './App.jsx'
 import { Provider } from 'react-redux'
 import { store } from './app/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { LoginPage, ProtectedRoute } from './components'
-import { AddPost, AllPosts, EditPost, Home, Post, Signup } from './pages'
+import { ProtectedRoute } from './components'
+import { AddPost, AllPosts, EditPost, ErrorPage, Home, Login, Post, Signup } from './pages'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true, 
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
         path: '/login',
         element: (
           <ProtectedRoute authentication={false}>
-            <LoginPage />
+            <Login />
           </ProtectedRoute>
         )
       },

@@ -8,12 +8,15 @@ function Home() {
   
   const [loading, setLoading] = useState(true)
   
-  useEffect(() => { 
+  useEffect(() => {
         databaseService.getAllActivePosts()
         .then((posts) => {
             if (posts) {
                 setPosts(posts.rows)
             }
+        })
+        .catch((error) => {
+            console.log('Error: ', error?.message);
         })
         .finally(() => setLoading(false))
   }, [])

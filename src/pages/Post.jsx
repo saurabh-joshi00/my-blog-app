@@ -26,6 +26,9 @@ function Post() {
                 if (post) setPost(post);
                 else navigate("/");
             })
+            .catch((error) => {
+                console.log('Error: ', error?.message);
+            })
             .finally(() => setLoading(false))
         } else navigate("/");
   }, [userData, slug, navigate])
@@ -37,7 +40,10 @@ function Post() {
                 toast.success('Post deleted!');
                 navigate("/");
             }
-        });
+        })
+        .catch((error) => {
+            console.log('Error: ', error?.message);
+        })
   };
     
   if (loading) {
@@ -60,7 +66,7 @@ function Post() {
                 {
                     <div className="absolute left-6 top-6">
                         <Link to='/'>
-                            <Button className='cursor-pointer'>
+                            <Button className='cursor-pointer bg-yellow-400'>
                                 Back
                             </Button>
                         </Link>
@@ -70,8 +76,7 @@ function Post() {
                 <img
                     src={storageService.getFilePreview(post.featuredImage)}
                     alt={post.title}
-                    className="rounded-xl"
-                    style={{width: '400px', height: '400px', objectFit: 'cover'}}
+                    className="rounded-xl w-full h-100 object-cover"
                 />
 
                 {

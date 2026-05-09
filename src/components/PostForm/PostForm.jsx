@@ -23,6 +23,14 @@ function PostForm({post}) {
   const userData = useSelector((state) => state.auth.userData)
 
   const submit = async (data) => {
+    if (!userData) {
+        toast.error('User is not logged in!', {
+            duration: 2000
+        });
+        console.log('User is not logged in!');
+        return;
+    }
+
     if (post) {
         let file = null;
 
@@ -57,7 +65,7 @@ function PostForm({post}) {
                 ...data,
                 featuredImage: file ? file.$id : post.featuredImage
             })
-            toast.success('Post updated!');
+            toast.success('Post has been updated!');
 
             if (dbPost) {
                 navigate('/my-posts')
@@ -126,38 +134,50 @@ function PostForm({post}) {
     <>
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
             <div className="w-2/3 px-2">
-                <InputBox
-                    label="Title: "
-                    placeholder="Title"
-                    className="mb-4"
-                    {...register("title", { required: true })}
-                />
-                {errors?.title && <p className='text-red-600 text-sm'>Title is required</p>}
+                <div className='mb-4'>
+                    <InputBox
+                        label="Title: "
+                        placeholder="Title"
+                        {...register("title", { required: true })}
+                    />
 
-                <InputBox
-                    label="Slug: "
-                    placeholder="Slug"
-                    className="mb-4"
-                    {...register("slug", { required: true })}
-                    onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
-                    }}
-                />
-                {errors?.slug && <p className='text-red-600 text-sm'>Slug is required</p>}
+                    {errors?.title && <p className='text-red-600 text-sm'>Title is required!</p>}
+                </div>
+                
+                <div className='mb-4'>
+                    <InputBox
+                        label="Slug: "
+                        placeholder="Slug"
+                        {...register("slug", { required: true })}
+                        onInput={(e) => {
+                            setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
+                        }}
+                        disabled
+                    />
 
-                <RealtimeEditor
-                    label="Content: " name="content" control={control} defaultValue={getValues("content")} 
-                />
+                    {errors?.slug && <p className='text-red-600 text-sm'>Slug is required!</p>}
+                </div>
+
+                <div className='mb-4'>
+                    <RealtimeEditor
+                        label="Content: " name="content" control={control} defaultValue={getValues("content")} {...register("content", { required: true })}
+                    />
+
+                    {errors?.content && <p className='text-red-600 text-sm'>Content is required!</p>}
+                </div>
             </div>
             <div className="w-1/3 px-2">
-                <InputBox
-                    label="Featured Image: "
-                    type="file"
-                    className="mb-4"
-                    accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !post })}
-                />
-                {errors?.image && <p className='text-red-600 text-sm'>Image is required</p>}
+                <div className="mb-4">
+                    <InputBox
+                        label="Featured Image: "
+                        type="file"
+                        accept="image/png, image/jpg, image/jpeg, image/gif"
+                        {...register("image", { required: !post })}
+                    />
+                    
+                    {errors?.image && <p className='text-red-600 text-sm'>Image is required!</p>}
+                </div>
+                
 
                 {post && (
                     <div className="w-full mb-4">

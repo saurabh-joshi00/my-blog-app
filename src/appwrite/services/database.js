@@ -30,6 +30,7 @@ export class DatabaseService {
             )
         } catch (error) {
             console.log("Appwrite service :: createPost :: error", error);
+            return null
         }
     }
 
@@ -49,6 +50,7 @@ export class DatabaseService {
             )
         } catch (error) {
             console.log("Appwrite service :: updatePost :: error", error);
+            return null
         }
     }
 
@@ -78,11 +80,11 @@ export class DatabaseService {
             )
         } catch (error) {
             console.log("Appwrite service :: getPost :: error", error);
-            return false
+            return null
         }
     }
 
-    // Get a list of the blog posts according to their 'status'
+    // Get a list of the blog posts according to the 'userId' and filtering them according to their 'status'
     async getFilteredPosts(userId, status = null) {
         try {
             const queries = [Query.equal('userId', userId)] // ← always filter by user
@@ -95,11 +97,11 @@ export class DatabaseService {
             )
         } catch (error) {
             console.log("Appwrite service :: getFilteredPosts :: error", error);
-            return false
+            return null
         }
     }
 
-    //
+    // Get a list of the blog posts with 'status === active'
     async getAllActivePosts() {
         try {
             const queries = [Query.equal('status', 'active')];
@@ -111,7 +113,7 @@ export class DatabaseService {
             )
         } catch (error) {
             console.log("Appwrite service :: getAllActivePosts :: error", error);
-            return false
+            return null
         }
     }
 }

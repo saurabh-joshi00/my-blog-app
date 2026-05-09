@@ -23,7 +23,7 @@ export class StorageService {
             )
         } catch (error) {
             console.log("Appwrite service :: uploadFile :: error", error);
-            return false
+            return null
         }
     }
 
