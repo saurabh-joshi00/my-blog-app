@@ -132,8 +132,8 @@ function PostForm({post}) {
     
   return (
     <>
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
+        <form onSubmit={handleSubmit(submit)} className="flex-none flex-nowrap md:flex md:flex-wrap">
+            <div className="w-full md:w-2/3 px-2">
                 <div className='mb-4'>
                     <InputBox
                         label="Title: "
@@ -166,7 +166,7 @@ function PostForm({post}) {
                     {errors?.content && <p className='text-red-600 text-sm'>Content is required!</p>}
                 </div>
             </div>
-            <div className="w-1/3 px-2">
+            <div className="w-full md:w-1/3 px-2">
                 <div className="mb-4">
                     <InputBox
                         label="Featured Image: "
@@ -180,7 +180,7 @@ function PostForm({post}) {
                 
 
                 {post && (
-                    <div className="w-full mb-4">
+                    <div className="w-1/2 md:w-full mb-4">
                         <img
                             src={storageService.getFilePreview(post.featuredImage)}
                             alt={post.title}
@@ -198,8 +198,8 @@ function PostForm({post}) {
 
                 <Button
                     type="submit" 
-                    bgColor={post ? "bg-green-500" : undefined} 
-                    className="w-full"
+                    bgColor={post ? "bg-green-600 hover:bg-green-700 duration-200" : undefined} 
+                    className="w-full hover:bg-blue-700 duration-200"
                 >
                     {post ? "Update" : "Submit"}
                 </Button>

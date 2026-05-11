@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Container, PostCard, SelectBox } from '../components'
+import { Button, Container, PostCard } from '../components'
 import databaseService from '../appwrite/services/database'
 import { useSelector } from 'react-redux'
 
@@ -63,8 +63,8 @@ function AllPosts() {
 
   return (
     <div className="w-full py-8">
-        <div className='pr-10 text-right'>
-            <select onChange={filterPosts} className='bg-blue-500 text-white p-2 rounded-lg'>
+        <div className='flex justify-end mr-8'>
+            <select onChange={filterPosts} className='px-4 py-2 bg-white text-black p-2 rounded-lg outline-none focus:bg-gray-50 duration-200 border border-gray-200'>
                 <option value="allPosts">All Posts</option>
                 <option value="activePosts">Active Posts</option>
                 <option value="inactivePosts">Inactive Posts</option>
@@ -83,12 +83,12 @@ function AllPosts() {
             ) : (
                 <Container>
                     {
-                        <div className='flex flex-wrap'>
+                        <div className='flex-none flex-nowrap md:flex md:flex-wrap'>
                             {
                                 posts
                                 .sort((a, b) => new Date(b.$createdAt) - new Date(a.$createdAt))
                                 .map((post) => (
-                                    <div key={post.$id} className='p-2 w-1/4'>
+                                    <div key={post.$id} className='p-2 w-full md:w-2/4 lg:w-1/4'>
                                         <PostCard {...post} />
                                     </div>
                                 ))

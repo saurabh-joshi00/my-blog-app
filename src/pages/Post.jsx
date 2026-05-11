@@ -6,6 +6,9 @@ import { Button, Container } from '../components'
 import storageService from '../appwrite/services/storage'
 import parse from 'html-react-parser'
 import toast from 'react-hot-toast'
+import { IoIosArrowBack } from 'react-icons/io'
+import { FaEdit } from 'react-icons/fa'
+import { MdDelete } from 'react-icons/md'
 
 function Post() {
 
@@ -66,8 +69,8 @@ function Post() {
                 {
                     <div className="absolute left-6 top-6">
                         <Link to='/'>
-                            <Button className='cursor-pointer bg-yellow-400'>
-                                Back
+                            <Button title='Back' className='cursor-pointer bg-yellow-400 hover:bg-yellow-500 duration-200'>
+                                <IoIosArrowBack size={25} />
                             </Button>
                         </Link>
                     </div>
@@ -83,12 +86,12 @@ function Post() {
                     isAuthor && (
                         <div className="absolute right-6 top-6">
                             <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3 cursor-pointer">
-                                    Edit
+                                <Button title='Update Post' bgColor="bg-green-500" className="mr-3 cursor-pointer hover:bg-green-600 duration-200">
+                                    <FaEdit size={25} />
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost} className='cursor-pointer'>
-                                Delete
+                            <Button title='Delete Post' bgColor="bg-red-500" onClick={deletePost} className='cursor-pointer hover:bg-red-600 duration-200'>
+                                <MdDelete size={25} />
                             </Button>
                         </div>
                     )

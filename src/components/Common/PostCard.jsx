@@ -26,7 +26,7 @@ function PostCard({
   return (
     <>
       <Link to={`/post/${$id}`}>
-        <div className='w-full bg-red-200 hover:bg-red-300 rounded-xl p-4'>
+        <div className='w-full bg-red-200 hover:bg-red-300 duration-200 rounded-xl p-4'>
             <div className='w-full mb-4'>
               {
                 featuredImage ? (

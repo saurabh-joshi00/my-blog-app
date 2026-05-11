@@ -33,7 +33,7 @@ function App() {
         <Toaster position="top-center" reverseOrder={false} />
         <div className="w-full block">
           <Header />
-            <main className="min-h-screen">
+            <main>
               <Outlet />
             </main>
           <Footer />
