@@ -5,7 +5,7 @@ import storageService from '../../appwrite/services/storage'
 function PostCard({
     $id,
     title,
-    featuredImage ,
+    featuredImage,
     $createdAt
 }) {
 

@@ -84,11 +84,11 @@ export class DatabaseService {
         }
     }
 
-    // Get a list of the blog posts according to the 'userId' and filtering them according to their 'status'
+    // Get a list of the blog posts according to the 'userId' and filtering them according to their 'status' (for initial load)
     async getFilteredPosts(userId, status = null) {
         try {
-            const queries = [Query.equal('userId', userId)] // ← always filter by user
-            if (status) queries.push(Query.equal('status', status))
+            const queries = [Query.equal('userId', userId)]; // Filter by user ID
+            if (status) queries.push(Query.equal('status', status));
 
             return await this.tablesDB.listRows(
                 config.appwriteDatabaseId,
@@ -101,7 +101,7 @@ export class DatabaseService {
         }
     }
 
-    // Get a list of the blog posts with 'status === active'
+    // Get a list of the blog posts with 'status === active' (for initial load)
     async getAllActivePosts() {
         try {
             const queries = [Query.equal('status', 'active')];
@@ -113,6 +113,106 @@ export class DatabaseService {
             )
         } catch (error) {
             console.log("Appwrite service :: getAllActivePosts :: error", error);
+            return null
+        }
+    }
+
+    // Get a list of sorted, search + paginated blog posts with 'status === active' (for home feed)
+    async getPaginatedPosts(limit = 6, cursor = null, direction = 'next', searchQuery = null) {
+        try {
+            const queries = [
+                Query.equal('status', 'active'),
+                Query.orderDesc('$createdAt'),
+                Query.limit(limit)
+            ];
+
+            // Add search query if provided
+            if (searchQuery && searchQuery.trim()) {
+                queries.push(Query.search('title', searchQuery));
+            }
+
+            if (cursor) {
+                if (direction === 'next') {
+                    queries.push(Query.cursorAfter(cursor));
+                }
+                
+                if (direction === 'prev') {
+                    queries.push(Query.cursorBefore(cursor));
+                }
+            }
+
+            let result = await this.tablesDB.listRows(
+                config.appwriteDatabaseId,
+                config.appwriteTableId,
+                queries
+            )
+
+            // Add client-side filter to ensure search query matches
+            if (result && searchQuery && searchQuery.trim()) {
+                const filteredRows = result.rows.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
+
+                return {
+                    ...result,
+                    rows: filteredRows,
+                    total: filteredRows.length
+                }
+            }
+
+            return result
+        } catch (error) {
+            console.log("Appwrite service :: getPaginatedPosts :: error", error);
+            return null
+        }
+    }
+
+    // Get a list of sorted, search + paginated blog posts filtered by userId and optional status (for user's own posts)
+    async getPaginatedUserPosts(userId, status = null, limit = 6, cursor = null, direction = 'next', searchQuery = null) {
+        try {
+            const queries = [
+                Query.equal('userId', userId),
+                Query.orderDesc('$createdAt'),
+                Query.limit(limit)
+            ];
+
+            if (status) {
+                queries.push(Query.equal('status', status));
+            }
+
+            // Add search query if provided
+            if (searchQuery && searchQuery.trim()) {
+                queries.push(Query.search('title', searchQuery));
+            }
+
+            if (cursor) {
+                if (direction === 'next') {
+                    queries.push(Query.cursorAfter(cursor));
+                }
+
+                if (direction === 'prev') {
+                    queries.push(Query.cursorBefore(cursor));
+                }
+            }
+
+            let result = await this.tablesDB.listRows(
+                config.appwriteDatabaseId,
+                config.appwriteTableId,
+                queries
+            )
+
+            // Add client-side filter to ensure search query matches
+            if (result && searchQuery && searchQuery.trim()) {
+                const filteredRows = result.rows.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
+
+                return {
+                    ...result,
+                    rows: filteredRows,
+                    total: filteredRows.length
+                }
+            }
+
+            return result
+        } catch (error) {
+            console.log("Appwrite service :: getPaginatedUserPosts :: error", error);
             return null
         }
     }

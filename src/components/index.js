@@ -12,6 +12,8 @@ import SignupPage from "./SignupPage/SignupPage";
 import RealtimeEditor from "./Common/RealtimeEditor"
 import PostForm from "./PostForm/PostForm";
 import ProtectedRoute from "./AuthLayout/ProtectedRoute"
+import Pagination from "./Common/Pagination";
+import SearchBar from "./Common/SearchBar";
 
 export {
     Header, 
@@ -27,5 +29,7 @@ export {
     SignupPage,
     RealtimeEditor,
     PostForm,
-    ProtectedRoute
+    ProtectedRoute,
+    Pagination,
+    SearchBar
 }

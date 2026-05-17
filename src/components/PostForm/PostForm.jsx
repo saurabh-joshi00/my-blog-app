@@ -78,7 +78,7 @@ function PostForm({post}) {
         }
     } else {
         // Create flow
-        const toastId = toast.loading('Creating...');
+        const toastId = toast.loading('Creating post...');
         try {
             if (!data.image[0]) throw new Error('Image is required');
             
