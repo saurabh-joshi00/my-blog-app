@@ -14,7 +14,7 @@ export class DatabaseService {
     }
 
     // Create a blog post functionality
-    async createPost({title, slug, content, featuredImage, status, userId}) {
+    async createPost({title, slug, content, featuredImage, status, userId, author}) {
         try {
             return await this.tablesDB.createRow(
                 config.appwriteDatabaseId,
@@ -25,7 +25,8 @@ export class DatabaseService {
                     content,
                     featuredImage,
                     status,
-                    userId
+                    userId,
+                    author
                 }
             )
         } catch (error) {
@@ -35,7 +36,7 @@ export class DatabaseService {
     }
 
     // Update a blog post functionality
-    async updatePost(slug, {title, content, featuredImage, status}) {
+    async updatePost(slug, {title, content, featuredImage, status, author}) {
         try {
             return await this.tablesDB.updateRow(
                 config.appwriteDatabaseId,
@@ -45,7 +46,8 @@ export class DatabaseService {
                     title,
                     content,
                     featuredImage,
-                    status
+                    status,
+                    author
                 }
             )
         } catch (error) {
@@ -128,7 +130,10 @@ export class DatabaseService {
 
             // Add search query if provided
             if (searchQuery && searchQuery.trim()) {
-                queries.push(Query.search('title', searchQuery));
+                queries.push(Query.or([
+                    Query.search('title', searchQuery),
+                    Query.search('author', searchQuery)
+                ]));
             }
 
             if (cursor) {
@@ -149,7 +154,10 @@ export class DatabaseService {
 
             // Add client-side filter to ensure search query matches
             if (result && searchQuery && searchQuery.trim()) {
-                const filteredRows = result.rows.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
+                const filteredRows = result.rows.filter(post => 
+                    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    post.author.toLowerCase().includes(searchQuery.toLowerCase())
+                );
 
                 return {
                     ...result,
@@ -180,7 +188,10 @@ export class DatabaseService {
 
             // Add search query if provided
             if (searchQuery && searchQuery.trim()) {
-                queries.push(Query.search('title', searchQuery));
+                queries.push(Query.or([
+                    Query.search('title', searchQuery),
+                    Query.search('author', searchQuery)
+                ]));
             }
 
             if (cursor) {
@@ -201,7 +212,10 @@ export class DatabaseService {
 
             // Add client-side filter to ensure search query matches
             if (result && searchQuery && searchQuery.trim()) {
-                const filteredRows = result.rows.filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
+                const filteredRows = result.rows.filter(post => 
+                    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    post.author.toLowerCase().includes(searchQuery.toLowerCase())
+                );
 
                 return {
                     ...result,

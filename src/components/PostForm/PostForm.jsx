@@ -14,7 +14,8 @@ function PostForm({post}) {
         title: post?.title || '',
         slug: post?.slug || post?.$id || '',
         content: post?.content || '',
-        status: post?.status || 'active'
+        status: post?.status || 'active',
+        author: post?.author || ''
     }
   })
 
@@ -195,6 +196,16 @@ function PostForm({post}) {
                     className="mb-4"
                     {...register("status", { required: true })}
                 />
+
+                <div className='mb-4'>
+                    <InputBox
+                        label="Author Name: "
+                        placeholder="Saurabh Joshi"
+                        {...register("author", { required: true })}
+                    />
+
+                    {errors?.author && <p className='text-red-600 text-sm'>Author Name is required!</p>}
+                </div>
 
                 <Button
                     type="submit" 

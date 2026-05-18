@@ -55,8 +55,7 @@ function Pagination({setPosts, userId = null, status = null, searchQuery = null}
 
   // Next page: only enable if current page is less than total pages
   const handleNext = () => {
-    if (lastId && currentPage < hasNextPage) {
-        setLoading(true)
+    if (lastId && currentPage < hasNextPage && hasNextPage > 0) {
         setCurrentPage((prev) => prev + 1)
         fetchPosts(lastId, 'next')
     }
@@ -65,7 +64,6 @@ function Pagination({setPosts, userId = null, status = null, searchQuery = null}
   // Previous page: only enable if not on first page
   const handlePrev = () => {
     if (firstId && currentPage > 1) {
-        setLoading(true)
         setCurrentPage((prev) => prev - 1)
         fetchPosts(firstId, 'prev')
     }
@@ -109,9 +107,9 @@ function Pagination({setPosts, userId = null, status = null, searchQuery = null}
                 <span className='text-sm'>{loading ? 'Loading...' : `Page: ${currentPage}`}</span>
 
                 <button 
-                    disabled={currentPage === hasNextPage}
+                    disabled={currentPage >= hasNextPage || hasNextPage === 0}
                     onClick={handleNext}
-                    className={`flex items-center p-2 rounded-lg duration-200 ${currentPage < hasNextPage ? 'bg-gray-300 hover:bg-gray-400 cursor-pointer' : 'bg-gray-200 cursor-not-allowed opacity-50'}`}
+                    className={`flex items-center p-2 rounded-lg duration-200 ${currentPage < hasNextPage && hasNextPage > 0 ? 'bg-gray-300 hover:bg-gray-400 cursor-pointer' : 'bg-gray-200 cursor-not-allowed opacity-50'}`}
                 >
                         <span className='font-semibold'>Next</span>
                         <GrFormNext size={20} />

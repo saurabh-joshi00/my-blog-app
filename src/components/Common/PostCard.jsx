@@ -6,7 +6,8 @@ function PostCard({
     $id,
     title,
     featuredImage,
-    $createdAt
+    $createdAt,
+    author
 }) {
 
   const formatDate = (dateString) => {
@@ -38,12 +39,13 @@ function PostCard({
                 )
               }  
             </div>
-            <p className='text-sm text-gray-600 mb-2'>{formatDate($createdAt)}</p>
+            <p className='text-left text-sm text-gray-600 mt-2'>{formatDate($createdAt)}</p>
             <h2 
-                className='text-xl font-bold text-center'
+                className='text-xl font-bold text-left my-2'
             >
                 {title}
             </h2>
+            <p className='text-left text-sm font-semibold text-gray-800 mt-2'>{author}</p>
         </div>
       </Link>
     </>

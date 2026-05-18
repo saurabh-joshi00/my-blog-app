@@ -29,6 +29,8 @@ function AllPosts() {
 
     if (userData) {
         const status = getStatusFromFilter(currentFilter)
+        
+        // If no search query, get regular filtered posts (initial load with pagination)
         databaseService.getFilteredPosts(userData.$id, status) 
         .then((posts) => {
             if (posts) {
@@ -45,7 +47,7 @@ function AllPosts() {
     } else {
         setLoading(false)
     }
-  }, [currentFilter, userData, searchQuery])
+  }, [currentFilter, userData])
 
 
   if (loading && posts.length === 0) {
@@ -62,61 +64,62 @@ function AllPosts() {
 
   return (
     <div className="w-full py-8">
-        <div className='flex justify-between mr-8'>
-            <SearchBar onSearch={setSearchQuery} />
+        <Container>
+            <div className='flex-none md:flex md:justify-between md:items-center md:mx-8'>
+                <SearchBar value={searchQuery} onSearch={setSearchQuery} />
 
-            <select 
-                value={currentFilter}
-                onChange={handleFilterChange} 
-                className='px-4 py-2 bg-white text-black rounded-lg outline-none focus:bg-gray-50 duration-200 border border-gray-400'
-            >
-                <option value="allPosts">All Posts</option>
-                <option value="activePosts">Active Posts</option>
-                <option value="inactivePosts">Inactive Posts</option>
-            </select>
-        </div>
+                <select 
+                    value={currentFilter}
+                    onChange={handleFilterChange} 
+                    className='ml-2 md:ml-0 mb-4 px-4 py-2 bg-white text-black rounded-lg outline-none focus:bg-gray-50 duration-200 border border-gray-400'
+                >
+                    <option value="allPosts">All Posts</option>
+                    <option value="activePosts">Active Posts</option>
+                    <option value="inactivePosts">Inactive Posts</option>
+                </select>
+            </div>
 
-        {
-            posts.length === 0 && !searchQuery
-            ? (
-                <div className='w-full py-8 text-center'>
+            {
+                posts.length === 0 && !searchQuery
+                ? (
+                    <div className='w-full py-8 text-center'>
+                        <Container>
+                            <div className='p-16 w-full'>
+                                <h1 className="text-2xl font-bold text-orange-600">No posts found yet!</h1>
+                            </div>
+                        </Container>
+                    </div>
+                ) 
+                : posts.length === 0 && searchQuery
+                ? (
+                    <div className='w-full py-8 text-center'>
+                        <Container>
+                            <div className='p-16 w-full'>
+                                <h1 className="text-2xl font-bold text-orange-600">No posts found for "{searchQuery}"</h1>
+                            </div>
+                        </Container>
+                    </div>
+                )
+                : (
                     <Container>
-                        <div className='p-16 w-full'>
-                            <h1 className="text-2xl font-bold text-orange-600">No posts found yet!</h1>
-                        </div>
+                        {
+                            <div className='flex-none flex-nowrap md:flex md:flex-wrap'>
+                                {
+                                    posts
+                                    .map((post) => (
+                                        <div key={post.$id} className='p-2 w-full md:w-2/4 lg:w-1/4'>
+                                            <PostCard {...post} />
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        }
                     </Container>
-                </div>
-            ) 
-            : posts.length === 0 && debouncedQuery
-            ? (
-                <div className='w-full py-8 text-center'>
-                    <Container>
-                        <div className='p-16 w-full'>
-                            <h1 className="text-2xl font-bold text-orange-600">No posts found for "{searchQuery}"</h1>
-                        </div>
-                    </Container>
-                </div>
-            )
-            : (
-                <Container>
-                    {
-                        <div className='flex-none flex-nowrap md:flex md:flex-wrap'>
-                            {
-                                posts
-                                .map((post) => (
-                                    <div key={post.$id} className='p-2 w-full md:w-2/4 lg:w-1/4'>
-                                        <PostCard {...post} />
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    }
-                    
-                    <Pagination setPosts={setPosts} userId={userData?.$id} status={getStatusFromFilter(currentFilter)} searchQuery={searchQuery}  />
-                </Container>
-            )
-        } 
-        
+                )
+            }
+
+            <Pagination setPosts={setPosts} userId={userData?.$id} status={getStatusFromFilter(currentFilter)} searchQuery={searchQuery}  />
+        </Container>
     </div>
   )
 }
