@@ -172,6 +172,7 @@ function PostForm({post}) {
                     <InputBox
                         label="Featured Image: "
                         type="file"
+                        className="file:mr-4 file:rounded-lg file:outline-none file:border-0 file:bg-gray-600 file:text-white file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-gray-700 file:duration-200 hover:file:cursor-pointer"
                         accept="image/png, image/jpg, image/jpeg, image/gif"
                         {...register("image", { required: !post })}
                     />
@@ -200,7 +201,7 @@ function PostForm({post}) {
                 <div className='mb-4'>
                     <InputBox
                         label="Author Name: "
-                        placeholder="Saurabh Joshi"
+                        placeholder="Author Name"
                         {...register("author", { required: true })}
                     />
 

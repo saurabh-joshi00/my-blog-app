@@ -22,6 +22,7 @@ function AllPosts() {
     const filterValue = e.currentTarget.value
     setCurrentFilter(filterValue)
     setLoading(true)
+    e.currentTarget.blur()  // remove focus after selecting
   }
 
   useEffect(() => {
@@ -71,7 +72,7 @@ function AllPosts() {
                 <select 
                     value={currentFilter}
                     onChange={handleFilterChange} 
-                    className='ml-2 md:ml-0 mb-4 px-4 py-2 bg-white text-black rounded-lg outline-none focus:bg-gray-50 duration-200 border border-gray-400'
+                    className='ml-2 md:ml-0 mb-4 px-4 py-2 bg-white rounded-lg outline-none border border-gray-400 group focus-within:border-orange-600 focus-within:ring-2 focus-within:ring-orange-200 transition-all duration-200'
                 >
                     <option value="allPosts">All Posts</option>
                     <option value="activePosts">Active Posts</option>

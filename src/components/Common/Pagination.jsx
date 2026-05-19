@@ -81,10 +81,11 @@ function Pagination({setPosts, userId = null, status = null, searchQuery = null}
                 <select
                     value={limit}
                     onChange={(e) => {
-                        setLimit(Number(e.target.value))
+                        setLimit(Number(e.currentTarget.value))
                         setCurrentPage(1)
+                        e.currentTarget.blur()  // remove focus after selecting
                     }} 
-                    className='px-4 py-2 bg-white text-black p-2 rounded-lg outline-none focus:bg-gray-50 duration-200 border border-gray-400'
+                    className='px-4 py-2 bg-white p-2 rounded-lg outline-none border border-gray-400 group focus-within:border-orange-600 focus-within:ring-2 focus-within:ring-orange-200 transition-all duration-200'
                 >
                     <option value="6">6</option>
                     <option value="12">12</option>
@@ -98,7 +99,7 @@ function Pagination({setPosts, userId = null, status = null, searchQuery = null}
                 <button 
                     disabled={currentPage === 1}
                     onClick={handlePrev}
-                    className={`flex items-center p-2 rounded-lg duration-200 ${currentPage > 1 ? 'bg-gray-300 hover:bg-gray-400 cursor-pointer' : 'bg-gray-200 cursor-not-allowed opacity-50'}`}
+                    className={`flex items-center p-2 rounded-lg duration-200 ${currentPage > 1 ? 'bg-orange-300 outline-none hover:bg-orange-400 hover:shadow-md hover:text-white hover:shadow-orange-600 cursor-pointer' : 'bg-orange-300 cursor-not-allowed opacity-50'}`}
                 >
                     <GrFormPrevious size={20} /> 
                     <span className='font-semibold'>Prev</span>
@@ -109,7 +110,7 @@ function Pagination({setPosts, userId = null, status = null, searchQuery = null}
                 <button 
                     disabled={currentPage >= hasNextPage || hasNextPage === 0}
                     onClick={handleNext}
-                    className={`flex items-center p-2 rounded-lg duration-200 ${currentPage < hasNextPage && hasNextPage > 0 ? 'bg-gray-300 hover:bg-gray-400 cursor-pointer' : 'bg-gray-200 cursor-not-allowed opacity-50'}`}
+                    className={`flex items-center p-2 rounded-lg duration-200 ${currentPage < hasNextPage && hasNextPage > 0 ? 'bg-orange-300 outline-none hover:bg-orange-400 hover:shadow-md hover:text-white hover:shadow-orange-600 cursor-pointer' : 'bg-orange-300 cursor-not-allowed opacity-50'}`}
                 >
                         <span className='font-semibold'>Next</span>
                         <GrFormNext size={20} />

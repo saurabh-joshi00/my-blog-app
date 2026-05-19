@@ -6,7 +6,7 @@ function SearchBar({ value, onSearch }) {
   return (
     <>
       <div className='w-full p-2 mb-4'>
-        <div className='w-full md:w-1/2 flex items-center px-4 py-2 bg-white rounded-lg outline-none border border-gray-400'>
+        <div className='w-full md:w-1/2 flex items-center px-4 py-2 bg-white rounded-lg outline-none border border-gray-400 group focus-within:border-orange-600 focus-within:ring-2 focus-within:ring-orange-200 transition-all duration-200'>
             <label htmlFor="search-bar">
                 <IoSearch size={15} />
             </label>
