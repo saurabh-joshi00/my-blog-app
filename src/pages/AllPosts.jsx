@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Container, Pagination, PostCard, SearchBar } from '../components'
+import { Container, Pagination, PostCard, SearchBar } from '../components'
 import databaseService from '../appwrite/services/database'
 import { useSelector } from 'react-redux'
 
