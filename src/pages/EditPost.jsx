@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import databaseService from '../appwrite/services/database'
 import { Container, PostForm } from '../components'
+import { useSelector } from 'react-redux'
 
 function EditPost() {
 
@@ -11,21 +12,31 @@ function EditPost() {
 
   const navigate = useNavigate()
 
+  const allPosts = useSelector((state) => state.post.posts) // Get from Redux
+
   useEffect(() => {
     if (slug) {
-        databaseService.getPost(slug)
-        .then((post) => {
-            if (post) {
-                setPost(post)
-            }
-        })
-        .catch((error) => {
-            console.log('Error: ', error?.message);
-        })
+        // First, check if post exists in Redux store
+        const reduxPost = allPosts.find((p) => p.$id === slug || p.slug === slug)
+
+        if (reduxPost) {
+            setPost(reduxPost)
+        } else {
+            // If not in Redux, fetch from database
+            databaseService.getPost(slug)
+            .then((post) => {
+                if (post) {
+                    setPost(post)
+                }
+            })
+            .catch((error) => {
+                console.log('Error: ', error?.message);
+            })
+        }
     } else {
         navigate('/')
     }
-  }, [slug, navigate])
+  }, [slug, navigate, allPosts])
   
   return post ? (
     <div className='py-8'>

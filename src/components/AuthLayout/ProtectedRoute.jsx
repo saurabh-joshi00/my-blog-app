@@ -11,7 +11,7 @@ function ProtectedRoute({
 
   const [loader, setLoader] = useState(true)
 
-  const authStatus = useSelector(state => state.auth.status)
+  const authStatus = useSelector(state => state.auth.status)    // Get from Redux
 
   useEffect(() => {
     /* CHECKING THIS APPROACH

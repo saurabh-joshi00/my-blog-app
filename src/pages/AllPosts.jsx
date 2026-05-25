@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Pagination, PostCard, SearchBar } from '../components'
 import databaseService from '../appwrite/services/database'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { allPostsStore } from '../features/posts/postSlice'
 
 function AllPosts() { 
 
@@ -10,7 +11,9 @@ function AllPosts() {
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
 
-  const userData = useSelector((state) => state.auth.userData)
+  const userData = useSelector((state) => state.auth.userData)  // Get from Redux
+
+  const dispatch = useDispatch()    // Dispatch to Redux
 
   const getStatusFromFilter = (filterValue) => {
     if (filterValue === 'activePosts') return 'active'
@@ -36,19 +39,22 @@ function AllPosts() {
         .then((posts) => {
             if (posts) {
                 setPosts(posts.rows)
+                dispatch(allPostsStore({ allPosts: posts.rows }))
             } else {
                 setPosts([])
+                dispatch(allPostsStore({ allPosts: [] }))
             }
         })
         .catch((error) => {
             console.log('Error: ', error?.message);
             setPosts([])
+            dispatch(allPostsStore({ allPosts: [] }))
         })
         .finally(() => setLoading(false))
     } else {
         setLoading(false)
     }
-  }, [currentFilter, userData])
+  }, [currentFilter, userData, dispatch])
 
 
   if (loading && posts.length === 0) {
@@ -73,7 +79,7 @@ function AllPosts() {
                     value={currentFilter}
                     onChange={handleFilterChange} 
                     className='ml-2 md:ml-0 mb-4 px-4 py-2 bg-white rounded-lg outline-none border border-gray-400 group focus-within:border-orange-600 focus-within:ring-2 focus-within:ring-orange-200 transition-all duration-200'
-                >
+                > 
                     <option value="allPosts">All Posts</option>
                     <option value="activePosts">Active Posts</option>
                     <option value="inactivePosts">Inactive Posts</option>

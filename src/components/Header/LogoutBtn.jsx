@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 function LogoutBtn({className='', handleMenu}) {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()  // Dispatch to Redux
   const navigate = useNavigate()
 
   const logoutHandler = () => {

@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import storageService from '../../appwrite/services/storage'
 import databaseService from '../../appwrite/services/database'
 import { Button, InputBox, RealtimeEditor, SelectBox } from '../index'
 import toast from 'react-hot-toast'
+import { addPost, updatePost as updatePostStore } from '../../features/posts/postSlice'
 
 function PostForm({post}) {
 
@@ -21,7 +22,9 @@ function PostForm({post}) {
 
   const navigate = useNavigate()
   
-  const userData = useSelector((state) => state.auth.userData)
+  const userData = useSelector((state) => state.auth.userData)  // Get from Redux
+
+  const dispatch = useDispatch()    // Dispatch to Redux
 
   const submit = async (data) => {
     if (!userData) {
@@ -69,6 +72,9 @@ function PostForm({post}) {
             toast.success('Post has been updated!');
 
             if (dbPost) {
+                // Convert to plain object before dispatching
+                const plainPost = JSON.parse(JSON.stringify(dbPost))
+                dispatch(updatePostStore({ documentId: post.$id, updatedPost: plainPost }))
                 navigate('/my-posts')
             }
         } catch (error) {
@@ -96,6 +102,9 @@ function PostForm({post}) {
             });
 
             if (dbPost) {
+                // Convert to plain object before dispatching
+                const plainPost = JSON.parse(JSON.stringify(dbPost))
+                dispatch(addPost({ newPost: plainPost }))
                 navigate('/my-posts')
             }
         } catch (error) {

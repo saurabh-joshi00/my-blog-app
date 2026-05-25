@@ -11,7 +11,7 @@ function App() {
   
   const [loading, setLoading] = useState(true)
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()  // Dispatch to Redux
 
   useEffect(() => {
     authService.getCurrentUser()

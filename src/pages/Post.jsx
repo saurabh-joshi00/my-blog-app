@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import databaseService from '../appwrite/services/database'
 import { Button, Container } from '../components'
@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 import { IoIosArrowBack } from 'react-icons/io'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
+import { deletePost as deletePostStore } from '../features/posts/postSlice'
 
 function Post() {
 
@@ -19,7 +20,9 @@ function Post() {
 
   const navigate = useNavigate()
 
-  const userData = useSelector((state) => state.auth.userData)
+  const userData = useSelector((state) => state.auth.userData)  // Get from Redux
+
+  const dispatch = useDispatch()    // Dispatch to Redux
 
   const isAuthor = post && userData ? post.userId === userData.$id : false
 
@@ -40,8 +43,9 @@ function Post() {
         databaseService.deletePost(post.$id).then((status) => {
             if (status) {
                 storageService.deleteFile(post.featuredImage);
-                toast.success('Post deleted!');
-                navigate("/");
+                dispatch(deletePostStore({ documentId: post.$id }));
+                toast.success('Post has been deleted!');
+                navigate("/my-posts");
             }
         })
         .catch((error) => {
@@ -79,7 +83,7 @@ function Post() {
                 <img
                     src={storageService.getFilePreview(post.featuredImage)}
                     alt={post.title}
-                    className="rounded-xl w-full h-100 object-cover"
+                    className="rounded-xl w-full h-100 object-contain"
                 />
 
                 {

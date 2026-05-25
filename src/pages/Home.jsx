@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import databaseService from '../appwrite/services/database'
 import { Container, Pagination, PostCard, SearchBar } from '../components'
+import { useDispatch } from 'react-redux'
+import { allPostsStore } from '../features/posts/postSlice'
 
 function Home() {
 
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+
+  const dispatch = useDispatch()    // Dispatch to Redux
 
   useEffect(() => {
     setLoading(true)
@@ -16,16 +20,19 @@ function Home() {
     .then((posts) => {
         if (posts) {
             setPosts(posts.rows)
+            dispatch(allPostsStore({ allPosts: posts.rows }))
         } else {
             setPosts([])
+            dispatch(allPostsStore({ allPosts: [] }))
         }
     })
     .catch((error) => {
         console.log('Error: ', error?.message);
         setPosts([])
+        dispatch(allPostsStore({ allPosts: [] }))
     })
     .finally(() => setLoading(false))
-  }, [])
+  }, [dispatch])
   
  
   if (loading && posts.length === 0) {

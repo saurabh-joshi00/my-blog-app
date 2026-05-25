@@ -9,8 +9,8 @@ function Header() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const authStatus = useSelector((state) => state.auth.status)
-  const userData = useSelector((state) => state.auth.userData)
+  const authStatus = useSelector((state) => state.auth.status)  // Get from Redux
+  const userData = useSelector((state) => state.auth.userData)  // Get from Redux
 
   const navigate = useNavigate()
 
@@ -53,7 +53,7 @@ function Header() {
     navigate(url)
   }, [navigate])
 
-  const getNavButtonClass =useCallback((itemUrl) => {
+  const getNavButtonClass = useCallback((itemUrl) => {
     const isActive = location.pathname === itemUrl
     return isActive ? 'bg-orange-100 text-black font-semibold' : 'text-orange-600 hover:bg-orange-100 hover:text-black'
   }, [location.pathname])

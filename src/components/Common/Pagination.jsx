@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import databaseService from '../../appwrite/services/database';
+import { useDispatch } from 'react-redux';
+import { allPostsStore } from '../../features/posts/postSlice';
 
 function Pagination({setPosts, userId = null, status = null, searchQuery = null}) {
 
@@ -11,6 +13,8 @@ function Pagination({setPosts, userId = null, status = null, searchQuery = null}
   const [currentPage, setCurrentPage] = useState(1)
   const [loading, setLoading] = useState(true)
   const [totalPosts, setTotalPosts] = useState(0)
+
+  const dispatch = useDispatch()    // Dispatch to Redux
 
   const fetchPosts = async (cursor = null, direction = 'next') => {
     try {
@@ -30,6 +34,7 @@ function Pagination({setPosts, userId = null, status = null, searchQuery = null}
             let posts = result.rows;
 
             setPosts(posts)
+            dispatch(allPostsStore({ allPosts: posts }))
 
             setFirstId(posts[0]?.$id)
 

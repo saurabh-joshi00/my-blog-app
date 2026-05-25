@@ -12,7 +12,7 @@ import { BsGithub } from 'react-icons/bs'
 function LoginPage() {
 
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()    // Dispatch to Redux
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
@@ -26,9 +26,9 @@ function LoginPage() {
   const login = async (data) => {
     setError('')
     try {
-        const session = await authService.login(data)
+        const session = await authService.login(data);
         if (session) {
-            const userData = await authService.getCurrentUser()
+            const userData = await authService.getCurrentUser();
             if (userData) dispatch(storeLogin({userData}));
             toast.success('Welcome back!');
             navigate('/');
@@ -42,20 +42,38 @@ function LoginPage() {
   }
 
   const loginWithGoogle = async () => {
+    setError('')
     try {
-        await authService.loginWithGoogle();
+        const googleSession = await authService.loginWithGoogle();
+        if (googleSession) {
+            const userData = await authService.getCurrentUser();
+            if (userData) dispatch(storeLogin({userData}));
+            toast.success('Welcome back!');
+            navigate('/');
+        }
     } catch (error) {
-        toast.error('Google login failed!');
-        console.log('Google login failed!');
+        toast.error('Google login failed!', {
+            duration: 2000
+        });
+        setError(error.message)
     }
   }
 
   const loginWithGithub = async () => {
+    setError('')
     try {
-        await authService.loginWithGithub();
+        const githubSession = await authService.loginWithGithub();
+        if (githubSession) {
+            const userData = await authService.getCurrentUser();
+            if (userData) dispatch(storeLogin({userData}));
+            toast.success('Welcome back!');
+            navigate('/');
+        }
     } catch (error) {
-        toast.error('GitHub login failed!');
-        console.log('Github login failed!');
+        toast.error('GitHub login failed!', {
+            duration: 2000
+        });
+        setError(error.message)
     }
   }
 
