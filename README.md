@@ -1,16 +1,15 @@
-# My Blog App
+# My Blog App 📝
 
----
 
 ## 🧭 Overview
 
-**My Blog App** is a production-level blogging platform where users can sign up, log in, and manage their own blog posts. The app uses **Appwrite** as a backend-as-a-service for authentication and database management, and integrates **TinyMCE** as a rich text editor for writing posts. Posts can be created, read, updated, and deleted — all behind protected routes that only authenticated users can access.
+**My Blog App** is a production-level blogging platform where users can sign up, log in, and manage their own blog posts. The app uses **Appwrite** as a BaaS (Backend-as-a-Service) tool for authentication and database management, and integrates **TinyMCE** as a rich text editor for writing posts. Posts can be created, read, updated, and deleted — all behind protected routes that only authenticated users can access.
 
 ---
 
 ## 🌐 Live Demo
 
-> 🔗 [View Live App](https://your-live-url.com) <!-- Replace with your deployed URL -->
+> 🔗 [View Live App](https://myappwriteblogs.vercel.app/)
 
 ---
 
@@ -22,6 +21,8 @@
 - 📖 **Post Feed** — Browse all published posts on the home page
 - ✏️ **Create & Edit Posts** — Form-based post creation and editing with React Hook Form
 - 🗑️ **Delete Posts** — Authors can remove their own posts
+- 🏪 **State Management** - Redux Toolkit for centralized state
+- 🎨 **Responsive Design** - Mobile-friendly UI
 - 🖼️ **Featured Images** — Upload and display cover images for each post
 - 📦 **Appwrite Storage** — File uploads managed via Appwrite Storage buckets
 - ⚙️ **Production-Level Architecture** — Clean service abstraction, config management, and component reusability
@@ -38,9 +39,10 @@
 | Forms            | React Hook Form                     |
 | Rich Text Editor | TinyMCE                             |
 | HTML Rendering   | HTML React Parser                   |
-| Backend / BaaS   | Appwrite (Auth, Database, Storage)  |
+| Backend/DB       | Appwrite (Auth, Database, Storage)  |
 | Styling          | Tailwind CSS, React Hot Toast       |
 | Build Tool       | Vite                                |
+| Deployment       | Vercel                              |
 
 ---
 
@@ -48,54 +50,89 @@
 
 ```
 my-blog-app/
-├── public/                     # Static assets
+├── public/                          # Static assets
+│
 ├── src/
-│   ├── appwrite/               # Appwrite service abstractions
-│   │   ├── auth.js             # Auth service (signup, login, logout, getCurrentUser)
-│   │   └── config.js           # Database & storage service (CRUD, file upload/preview)
-│   ├── components/             # Reusable UI components
-│   │   ├── Header/
-│   │   │   ├── Header.jsx
-│   │   │   └── LogoutBtn.jsx
+│   ├── app/
+│   │   └── store.js                # Redux store configuration
+│   │
+│   ├── appwrite/
+│   │   └── services/
+│   │       ├── auth.js             # Authentication service (login, signup, logout)
+│   │       ├── database.js         # Database service (CRUD operations for posts)
+│   │       └── storage.js          # Storage service (image uploads)
+│   │
+│   ├── assests/                    # Images, icons, and other media files
+│   │
+│   ├── components/
+│   │   ├── AuthLayout/
+│   │   │   └── ProtectedRoute.jsx  # Route protection wrapper
+│   │   │
+│   │   ├── Common/
+│   │   │   ├── Button.jsx          # Reusable button component
+│   │   │   ├── InputBox.jsx        # Reusable input field component
+│   │   │   ├── Logo.jsx            # App logo component
+│   │   │   ├── Pagination.jsx      # Pagination component for post lists
+│   │   │   ├── PostCard.jsx        # Individual post card component
+│   │   │   ├── RealtimeEditor.jsx  # TinyMCE editor integration
+│   │   │   ├── SearchBar.jsx       # Search functionality component
+│   │   │   └── SelectBox.jsx       # Reusable select dropdown component
+│   │   │
+│   │   ├── Container/
+│   │   │   └── Container.jsx       # Layout wrapper component
+│   │   │
 │   │   ├── Footer/
-│   │   │   └── Footer.jsx
-│   │   ├── post-form/
-│   │   │   └── PostForm.jsx    # Unified create/edit post form
-│   │   ├── AuthLayout.jsx      # Protected route wrapper (auth guard)
-│   │   ├── Button.jsx
-│   │   ├── Input.jsx
-│   │   ├── Login.jsx
-│   │   ├── Logo.jsx
-│   │   ├── PostCard.jsx
-│   │   ├── RTE.jsx             # TinyMCE rich text editor wrapper
-│   │   ├── Select.jsx
-│   │   ├── Signup.jsx
-│   │   └── index.js            # Barrel export for all components
-│   ├── pages/                  # Route-level page components
-│   │   ├── Home.jsx
-│   │   ├── Login.jsx
-│   │   ├── Signup.jsx
-│   │   ├── AllPosts.jsx
-│   │   ├── AddPost.jsx
-│   │   ├── EditPost.jsx
-│   │   └── Post.jsx
-│   ├── store/                  # Redux Toolkit state management
-│   │   ├── store.js
-│   │   └── authSlice.js
-│   ├── conf/                   # Centralized env variable config
-│   │   └── conf.js
-│   ├── App.jsx                 # Root component with route definitions
-│   ├── main.jsx                # Entry point — Redux Provider + React DOM
-│   └── index.css               # Global styles
-├── .env                        # Environment variables (not committed)
-├── .env.sample                 # Sample env file for reference
-├── .gitignore
-├── eslint.config.js
-├── index.html
-├── package-lock.json
-├── package.json
-├── vite.config.js
-└── README.md
+│   │   │   └── Footer.jsx          # Footer component
+│   │   │
+│   │   ├── Header/
+│   │   │   ├── Header.jsx          # Navigation header component
+│   │   │   └── LogoutBtn.jsx       # Logout button component
+│   │   │
+│   │   ├── LoginPage/
+│   │   │   └── LoginPage.jsx       # Login page component
+│   │   │
+│   │   ├── PostForm/
+│   │   │   └── PostForm.jsx        # Post creation/editing form
+│   │   │
+│   │   ├── SignupPage/
+│   │   │   └── SignupPage.jsx      # Signup page component
+│   │   │
+│   │   └── index.js                # Component exports
+│   │
+│   ├── config/
+│   │   └── config.js               # App configuration and environment variables
+│   │
+│   ├── features/
+│   │   ├── authentication/
+│   │   │   └── authSlice.js        # Redux slice for authentication state
+│   │   │
+│   │   └── posts/
+│   │       └── postSlice.js        # Redux slice for posts state
+│   │
+│   ├── pages/
+│   │   ├── AddPost.jsx             # Page to create new post
+│   │   ├── AllPosts.jsx            # Page to view all posts
+│   │   ├── EditPost.jsx            # Page to edit existing post
+│   │   ├── Home.jsx                # Home page
+│   │   ├── Login.jsx               # Login page
+│   │   ├── Post.jsx                # Single post detail page
+│   │   ├── Signup.jsx              # Signup page
+│   │   └── index.js                # Page exports
+│   │
+│   ├── App.jsx                     # Main app component with routing
+│   ├── index.css                   # Global styles
+│   └── main.jsx                    # React entry point
+│
+├── .env                            # Environment variables (local, not in git)
+├── .env.sample                     # Sample environment variables template
+├── .gitignore                      # Git ignore rules
+├── eslint.config.js                # ESLint configuration
+├── index.html                      # HTML entry point
+├── package.json                    # Project dependencies and scripts
+├── package-lock.json               # Locked dependency versions
+├── vite.config.js                  # Vite configuration
+├── vercel.json                     # Vercel deployment configuration
+└── README.md                       # Project documentation
 ```
 
 ---
@@ -107,8 +144,7 @@ my-blog-app/
 Make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (v18 or later recommended)
-- [npm](https://www.npmjs.com/)
-- An [Appwrite](https://appwrite.io/) account and project set up
+- [Appwrite](https://appwrite.io/) account and project set up
 
 ---
 
@@ -138,7 +174,7 @@ cp .env.example .env
 Then fill in your Appwrite project details:
 
 ```env
-VITE_APPWRITE_URL=https://cloud.appwrite.io/v1
+VITE_APPWRITE_URL=your_appwrite_endpoint
 VITE_APPWRITE_PROJECT_ID=your_project_id
 VITE_APPWRITE_DATABASE_ID=your_database_id
 VITE_APPWRITE_COLLECTION_ID=your_collection_id
@@ -175,10 +211,43 @@ npm run preview
    - `featuredImage` — String (file ID), required
    - `status` — String (`active` / `inactive`), required
    - `userId` — String, required
+   - `author` — String, required
    - `slug` — String, required (used as Document ID)
 4. **Storage** — Create a storage bucket for featured images
 5. **Permissions** — Set appropriate read/write permissions on the collection and bucket
 6. Copy your Project ID, Database ID, Collection ID, and Bucket ID into your `.env` file
+
+---
+
+## 🔌 Appwrite Services
+
+### Auth Service (`auth.js`)
+- User registration
+- User login
+- User logout
+- Get current user
+
+### Database Service (`database.js`)
+- Create post
+- Get all posts
+- Get single post
+- Update post
+- Delete post
+
+### Storage Service (`storage.js`)
+- Upload images
+- Delete images
+- Get image preview
+
+---
+
+## 🚀 Deployment
+
+### Deploy to Vercel
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Set environment variables in Vercel dashboard
+4. Deploy!
 
 ---
 
@@ -192,5 +261,5 @@ npm run preview
 ---
 
 <div align="center">
-  <sub>Built with ❤️ using React & Appwrite</sub>
+  <sub>Happy Blogging! ❤️</sub>
 </div>
