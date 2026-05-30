@@ -251,15 +251,10 @@ npm run preview
 
 ---
 
-## 👨‍💻 BTS Developer
-
-**Saurabh Joshi**
-- GitHub: [@github/saurabh-joshi00](https://github.com/saurabh-joshi00)
-- LinkedIn: [@linkedin/saurabh-joshi01](https://www.linkedin.com/in/saurabh-joshi01/)
-- Twitter/X: [@x/saurabhhdotfr](https://x.com/saurabhhdotfr)
+**_Built with_ ❤️ _by Saurabh Joshi_**
 
 ---
 
 <div align="center">
-  <sub>Happy Blogging! ❤️</sub>
+  <sub>Happy Blogging! ✨</sub>
 </div>
